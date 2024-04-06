@@ -9,6 +9,7 @@ typedef struct	s_list
 }		t_list;
 
 long	ft_atoi(char *str);
+char	*ft_strdup(char *stc);
 
 char	*ft_getnb(int fd)
 {
@@ -43,6 +44,7 @@ char	*ft_getval(int fd, char *c)
 	{
 		str[i] = c[0];
 		read(fd, c, 1);
+		i++;
 	}
 	return (str);
 }
@@ -70,7 +72,7 @@ t_list	*get_dict(char *file)
 		while (c[0] == ' ')
 			read(fd, c, 1);
 		tmp = ft_getval(fd, c);
-		//tab[i].val = ft_strdup(tmp);
+		tab[i].val = ft_strdup(tmp);
 		tab[i].val = tmp;
 		free(tmp);
 		i++;
