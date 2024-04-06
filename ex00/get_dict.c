@@ -1,55 +1,80 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_dict.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: judblanc <judblanc@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 13:36:44 by judblanc          #+#    #+#             */
-/*   Updated: 2024/04/06 15:11:10 by judblanc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 1024
-
-void	get_dict(char *dict)
+typedef struct	s_list
 {
-    int fd; // Descriptor de archivo
-    ssize_t bytes_read;
-    char buffer[BUFFER_SIZE];
-    // Abrir el archivo
-    fd = open(dict, O_RDONLY);
-    if (fd == -1)
-   	{
-        write(2, "Error al abrir el archivo\n", 27);
-        exit(EXIT_FAILURE);
-    }
-    // Leer el contenido del archivo y mostrarlo en la salida estándar
-    while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
-	{
-        if (write(STDOUT_FILENO, buffer, bytes_read) != bytes_read)
-		{
-            write(2, "Error al escribir en la salida estándar\n", 40);
-			close(fd);
-            exit(EXIT_FAILURE);
-        }
-    }
-    if (bytes_read == -1)
-	{
-        write(2, "Error al leer el archivo\n", 26);
-		close(fd);
-        exit(EXIT_FAILURE);
-    }
+	int	nb;
+	char	*val;
+}		t_list;
 
-    // Cerrar el archivo
-    if (close(fd) == -1)
+long	ft_atoi(char *str);
+
+char	*ft_getnb(int fd)
+{
+	int		i;
+	char	c[1];
+	char	*str;
+
+	if (!(str = malloc(sizeof(char) * 128)))
+		exit(1);
+	i = 0;
+	read(fd, c, 1);
+	while (c[0] == '\n')
+		read(fd, c, 1);
+	while (c[0] >= '0' && c[0] <= '9')
 	{
-        write(2, "Error al cerrar el archivo\n", 27);
-		exit(EXIT_FAILURE);
-    }
+		str[i] = c[0];
+		read(fd, c, 1);
+		i++;
+	}
+	return (str);
 }
 
+char	*ft_getval(int fd, char *c)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = malloc(sizeof(char) * 128)))
+		exit(1);
+	while (c[0] != '\n')
+	{
+		str[i] = c[0];
+		read(fd, c, 1);
+	}
+	return (str);
+}
+
+t_list	*get_dict(char *file)
+{
+	int	i;
+	int	fd;
+	char	c[1];
+	t_list	*tab;
+	char *tmp;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1 || !(tab = malloc(sizeof(t_list) * 33)))
+		exit(1);
+	i = 0;
+	while (i < 32)
+	{
+		tab[i].nb = ft_atoi(ft_getnb(fd));
+		read(fd, c, 1);
+		while (c[0] == ' ')
+			read(fd, c, 1);
+		if (c[0] == ':')
+			read(fd, c, 1);
+		while (c[0] == ' ')
+			read(fd, c, 1);
+		tmp = ft_getval(fd, c);
+		//tab[i].val = ft_strdup(tmp);
+		tab[i].val = tmp;
+		free(tmp);
+		i++;
+	}
+	close(fd);
+	return (tab);
+}
