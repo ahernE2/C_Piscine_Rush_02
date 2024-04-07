@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:51:07 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 06:31:36 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 13:26:27 by judblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_error(void)
 	exit(1);
 }
 
-void	ft_print_separator_with_space(int j,char *dict)
+void	ft_print_separator_with_space(int j, char *dict)
 {
 	write(1, " ", 1);
 	print_separator(j, dict);
