@@ -6,15 +6,15 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:51:07 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 16:37:00 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:11:33 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-void	ft_error(void)
+void	ft_error(char *str, int size)
 {
-	write(2, "Error\n", 6);
+	write(2, str, size);
 	exit(1);
 }
 

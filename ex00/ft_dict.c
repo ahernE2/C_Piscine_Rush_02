@@ -6,22 +6,23 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:20:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 19:27:41 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:31:19 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-int	ft_word_len(int i)
+int	ft_word_len(int i, char *file)
 {
 	int		len;
 	int		fd;
 	char	buffer;
 
 	len = 0;
-	fd = open("numbers.dict", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (0);
+		ft_error("Dict Error\n", 11);
+		//return (0);
 	while (i-- > 0)
 		read(fd, &buffer, 1);
 	while (read(fd, &buffer, 1) && buffer == ' ')
@@ -34,12 +35,12 @@ int	ft_word_len(int i)
 	return (len);
 }
 
-char	*ft_get_word_in_dict(int fd, int nb_char, char buffer)
+char	*ft_get_word_in_dict(int fd, int nb_char, char buffer, char *file)
 {
 	char	*str;
 	int		i;
 
-	i = ft_word_len(nb_char);
+	i = ft_word_len(nb_char, file);
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	while (buffer == ' ')
 		read(fd, &buffer, 1);
@@ -69,54 +70,42 @@ void	ft_go_to_next_line(int *fd, int *i)
 	*i = 0;
 }
 
-char	*ft_remove_multiple_space(char *str)
+char	*ft_parse_dict_internal(char *str, int fd, char *file)
 {
-	char	*str_cpy;
-	int		len;
 	int		i;
-	int		j;
+	char	buffer;
+	char	*output;
 
-	len = ft_strlen(str);
-	str_cpy = (char *)malloc(sizeof(char) * (len + 100));
-	i = 1;
-	j = 1;
-	str_cpy[0] = str[0];
-	while (str[i])
+	i = 0;
+	while (read(fd, &buffer, 1))
 	{
-		if (!(str[i] == ' ' && str[i - 1] == ' '))
+		if (str[i] != buffer && str[i] != '\0')
 		{
-			str_cpy[j] = str[i];
-			j++;
+			ft_go_to_next_line(&fd, &i);
+			continue ;
+		}
+		if ((buffer == ':' || buffer == ' ') && str[i] == '\0')
+			output = ft_get_word_in_dict(fd, i, buffer, file);
+		if (str[i] == '\0')
+		{
+			ft_go_to_next_line(&fd, &i);
+			continue ;
 		}
 		i++;
 	}
-	str_cpy[j] = '\0';
-	ft_realloc(&str_cpy, '-');
-	return (str_cpy);
+	return (output);
 }
 
-int	check_args(int argc, char **argv)
+char	*ft_parse_dict(char *str, char *file)
 {
-	int		i;
-	int		y;
+	int		fd;
+	char	*output;
 
-	i = 0;
-	y = 0;
-	if (argc == 2)
-		i = 1;
-	else if (argc == 3)
-		i = 2;
-	else
-		return (-1);
-	if (argv[i][y] == '0')
-		ft_remove_start_zeros(&argv[1]);
-	if (argv[i][y] == '\0')
-		return (-1);
-	while (argv[i][y])
-	{
-		if (argv[i][y] < '0' || argv[i][y] > '9')
-			return (-1);
-		y++;
-	}
-	return (y);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error("Dict Error\n", 11);
+		//return (0);
+	output = ft_parse_dict_internal(str, fd, file);
+	close(fd);
+	return (ft_remove_multiple_space(output));
 }

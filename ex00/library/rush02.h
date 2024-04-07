@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:45:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 20:48:55 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:33:51 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 int		main(int argc, char **argv);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strlen(char *str);
-int		ft_word_len(int i);
+int		ft_word_len(int i, char *file);
 int		ft_realloc(char **str, char sign);
 int		check_args(int argc, char **argv);
 char	*ft_parse_dict(char *str, char *file);
-char	*ft_parse_dict_internal(char *str, int fd);
-char	*ft_get_word_in_dict(int fd, int nb_char, char buffer);
+char	*ft_parse_dict_internal(char *str, int fd, char *file);
+char	*ft_get_word_in_dict(int fd, int nb_char, char buffer, char *file);
 char	*ft_remove_multiple_space(char *str);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*get_nbr(int argc, char **argv);
@@ -39,7 +39,7 @@ void	print_number(char *str, char *dict);
 void	putstr(char *str);
 void	print_separator(int j, char *dict);
 void	ft_go_to_next_line(int *fd, int *i);
-void	ft_error(void);
+void	ft_error(char *file, int size);
 void	ft_print_separator_with_space(int j, char *dict);
 void	ft_remove_start_zeros(char **str);
 void	div_string(int *i, char *str, char *argv, int *l);

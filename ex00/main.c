@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 03:30:12 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 18:35:16 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:30:19 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	i = check_args(argc, argv);
 	if (i == -1)
 	{
-		ft_error();
+		ft_error("Arg Error\n", 10);
 		return (0);
 	}
 	nbr = get_nbr(argc, argv);
