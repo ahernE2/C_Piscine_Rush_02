@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 03:30:12 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 06:32:43 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 13:45:08 by judblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ int	check_args(int argc, char **argv)
 	else if (argc == 3)
 		i = 2;
 	else
-		return (0);
+		return (-1);
 	if (argv[i][y] == '0')
 		ft_remove_start_zeros(&argv[1]);
 	if (argv[i][y] == '\0')
-		return (0); // Si la cadena está vacía, retornar -1
+		return (-1); // Si la cadena está vacía, retornar -1
 	// Verificar si todos los caracteres son dígitos
 	while (argv[i][y])
 	{
 		if (argv[i][y] < '0' || argv[i][y] > '9')
-			return (0); // Si un carácter no es un dígito, retornar -1
+			return (-1); // Si un carácter no es un dígito, retornar -1
 		y++;
 	}
 	//comp_str_dict(i); // Comparar la cadena con el diccionario
@@ -91,7 +91,7 @@ char	*get_nbr(int argc, char **argv)
 		return (argv[2]);
 }
 
-char 	*get_dict(int argc, char **argv)
+char	*get_dict(int argc, char **argv)
 {
 	if (argc == 2)
 		return ("numbers.dict");
