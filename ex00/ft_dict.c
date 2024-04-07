@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:20:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 21:31:19 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:47:29 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_word_len(int i, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error("Dict Error\n", 11);
-		//return (0);
 	while (i-- > 0)
 		read(fd, &buffer, 1);
 	while (read(fd, &buffer, 1) && buffer == ' ')
@@ -104,7 +103,6 @@ char	*ft_parse_dict(char *str, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error("Dict Error\n", 11);
-		//return (0);
 	output = ft_parse_dict_internal(str, fd, file);
 	close(fd);
 	return (ft_remove_multiple_space(output));
