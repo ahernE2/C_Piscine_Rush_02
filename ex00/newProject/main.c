@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 03:30:12 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 13:45:08 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 14:44:53 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ void	print_words(int i, char *nbr, char *dict, char *str)
 	{
 		div_string(&i, str, nbr, &l); // Dividir la cadena en grupos de tres caracteres
 		if (j != k && ft_strcmp(str, "000") != 0)
-			write(1, ", ", 2); // Imprimir coma y espacio si no es el primer grupo y el grupo actual no es cero
+			write(1, " ", 1); // Imprimir coma y espacio si no es el primer grupo y el grupo actual no es cero
 		// Imprimir "and" si es el último grupo y el grupo actual no es cero y no empieza con cero
 		if (j == 1 && ft_strcmp(str, "000") != 0 && str[0] == '0' && k != 1)
-			write(1, "and ", 4);
+			write(1, " ", 1);
 		print_number(str, dict); // Imprimir la palabra asociada al grupo de tres caracteres
 		if (ft_strcmp(str, "000") != 0 && j != 1)
 			ft_print_separator_with_space(j, dict); // Imprimir el separador con espacio si no es el último grupo

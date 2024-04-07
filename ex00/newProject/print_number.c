@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 04:57:18 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 06:14:08 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 14:43:49 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	print_tab3(char *str, char *dict)
 		write(1, " ", 1);
 		putstr(ft_parse_dict("100", dict));
 		if (str[1] != '0' || str[2] != '0')
-			write(1, " and ", 5);
+			write(1, " ", 1);
 	}
 	if (str[1] != '0' || str[2] != '0')
 	{
