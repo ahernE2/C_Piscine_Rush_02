@@ -6,11 +6,9 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:20:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 14:34:48 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:27:41 by judblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "rush02.h"
 
 #include "rush02.h"
 
@@ -97,32 +95,28 @@ char	*ft_remove_multiple_space(char *str)
 	return (str_cpy);
 }
 
-char	*ft_parse_dict(char *str, char *file)
+int	check_args(int argc, char **argv)
 {
-	int		fd;
 	int		i;
-	char	buffer;
-	char	*output;
+	int		y;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (0);
 	i = 0;
-	while (read(fd, &buffer, 1))
+	y = 0;
+	if (argc == 2)
+		i = 1;
+	else if (argc == 3)
+		i = 2;
+	else
+		return (-1);
+	if (argv[i][y] == '0')
+		ft_remove_start_zeros(&argv[1]);
+	if (argv[i][y] == '\0')
+		return (-1);
+	while (argv[i][y])
 	{
-		if (str[i] != buffer && str[i] != '\0')
-		{
-			ft_go_to_next_line(&fd, &i);
-			continue ;
-		}
-		if ((buffer == ':' || buffer == ' ') && str[i] == '\0')
-			output = ft_get_word_in_dict(fd, i, buffer);
-		if (str[i] == '\0')
-		{
-			ft_go_to_next_line(&fd, &i);
-			continue ;
-		}
-		i++;
+		if (argv[i][y] < '0' || argv[i][y] > '9')
+			return (-1);
+		y++;
 	}
-	return (ft_remove_multiple_space(output));
+	return (y);
 }
