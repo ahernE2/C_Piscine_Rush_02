@@ -6,13 +6,13 @@
 /*   By: judblanc <judblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 17:08:26 by judblanc          #+#    #+#             */
-/*   Updated: 2024/04/07 19:27:31 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:48:52 by judblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-void	div_string_extra(int *i, char *str, char *nbr, int *l)
+int	div_string_extra(int *i, char *str, char *nbr, int *l)
 {
 	int	k;
 
@@ -24,9 +24,10 @@ void	div_string_extra(int *i, char *str, char *nbr, int *l)
 		k++;
 		(*l)++;
 	}
+	return (k);
 }
 
-void	div_string_perfect(int *i, char *str, char *nbr, int *l)
+int	div_string_perfect(char *str, char *nbr, int *l)
 {
 	int	k;
 	int	j;
@@ -40,32 +41,23 @@ void	div_string_perfect(int *i, char *str, char *nbr, int *l)
 		k++;
 		(*l)++;
 	}
+	return (k);
 }
 
 void	div_string(int *i, char *str, char *nbr, int *l)
 {
+	int	k;
+
+	k = 0;
 	if (*i % 3 != 0)
 	{
-		div_string_extra(i, str, nbr, l);
+		k = div_string_extra(i, str, nbr, l);
 	}
 	else
 	{
-		div_string_perfect(i, str, nbr, l);
+		k = div_string_perfect(str, nbr, l);
 	}
-	str[*i] = '\0';
-}
-
-char	*ft_parse_dict(char *str, char *file)
-{
-	int		fd;
-	char	*output;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	output = ft_parse_dict_internal(str, fd);
-	close(fd);
-	return (ft_remove_multiple_space(output));
+	str[k] = '\0';
 }
 
 char	*ft_parse_dict_internal(char *str, int fd)
@@ -92,4 +84,17 @@ char	*ft_parse_dict_internal(char *str, int fd)
 		i++;
 	}
 	return (output);
+}
+
+char	*ft_parse_dict(char *str, char *file)
+{
+	int		fd;
+	char	*output;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	output = ft_parse_dict_internal(str, fd);
+	close(fd);
+	return (ft_remove_multiple_space(output));
 }

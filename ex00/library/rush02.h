@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:45:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 19:27:50 by judblanc         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:48:55 by judblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	div_string(int *i, char *str, char *argv, int *l);
 void	print_words(int i, char *nbr, char *dict, char *str);
 void	print_tab2(char *str, char *dict);
 void	print_tab3(char *str, char *dict);
-void	div_string_extra(int *i, char *str, char *nbr, int *l);
-void	div_string_perfect(int *i, char *str, char *nbr, int *l);
+int		div_string_extra(int *i, char *str, char *nbr, int *l);
+int		div_string_perfect(char *str, char *nbr, int *l);
 
 #endif
