@@ -1,27 +1,30 @@
-# Nombre del archivo ejecutable
-TARGET = rush-02
+#Nombre del Programa
+NAME = rush-02
 
-# Compilador a utilizar
-CC = cc
+#Archivos Fuente
+SRCS = *.c
 
-# Opciones de compilación
-CFLAGS = -Wall -Wextra -Werror -g
+#Archivos objeto generados durante la compilacion
+OBJECTS = ${SRC:.c=.o}
 
-# Archivos fuente
-SOURCES = *.c
+#Flags de compilacion
+FLAGS = -Wall -Werror -Wextra
 
-# Archivos objeto generados durante la compilación
-OBJECTS = $(SOURCES:.c=.o)
+all:	${NAME}
 
-# Regla principal para generar el ejecutable
-$(TARGET): $(OBJECTS)
-    $(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)
+${NAME}: ${OBJECTS}
+	@echo	"(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧ Compilando, espere unos segundos..."
+	cc -o ${NAME} ${SRCS} -Ilibrary ${FLAGS}
+	@echo	"(•̀ᴗ•́)و $(NAME) generado!"
 
-# Regla para compilar cada archivo fuente en un archivo objeto
-%.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
-
-# Regla para limpiar los archivos objeto y el ejecutable
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f ${OBJECTS}
+	@echo	"¯\_(ツ)_/¯ Objects removidos!"
 
+fclean: clean
+	rm -f ${NAME}
+	@echo	"(╯°□°）╯︵ ┻━┻ $(NAME) removido!"
+
+re: fclean all
+
+.PHONY: all clean fclean
