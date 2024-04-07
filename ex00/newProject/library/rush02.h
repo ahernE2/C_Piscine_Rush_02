@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 05:45:50 by alejhern          #+#    #+#             */
-/*   Updated: 2024/04/07 06:18:09 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/04/07 06:32:06 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	ft_error(void);
 void	comp_str_dict(int len);
 void	ft_remove_start_zeros(char **str);
 int		ft_realloc(char **str, char sign);
-void	ft_print_separator_with_space(void);
+void	ft_print_separator_with_space(int j, char *dict);
 
 #endif
